@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroEstudiantes.AppMovil.Vistas.ListarEstudiantes"
+             Title="Listado de Estudiantes">
+    <ScrollView>
+        <Grid Padding="10" RowSpacing="10" ColumnSpacing="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Barra de búsqueda -->
+            <SearchBar Placeholder="Buscar estudiante..."
+                       x:Name="filtroSearchBar"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       TextChanged="filtroSearchBar_TextChanged"
+                       HorizontalOptions="FillAndExpand"/>
+
+            <!-- Botón para agregar estudiantes -->
+            <Button Text="Nuevo Estudiante"
+                    x:Name="NuevoEstudianteBoton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Clicked="NuevoEstudianteBoton_Clicked"
+                    HorizontalOptions="End"/>
+
+            <!-- Lista de estudiantes -->
+            <CollectionView x:Name="listaCollection"
+                            ItemsSource="{Binding Lista}"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="10" Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Imagen del estudiante -->
+                            <Image Grid.RowSpan="2"
+                                   Source="profile.jpg"
+                                   Aspect="AspectFill"
+                                   HeightRequest="60"
+                                   WidthRequest="60"/>
+
+                            <!-- Nombre completo -->
+                            <Label Grid.Column="1"
+                                   Grid.Row="0"
+                                   Text="{Binding NombreCompleto}"
+                                   FontAttributes="Bold"
+                                   FontSize="20"/>
+
+                            <!-- Nombre del curso -->
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Curso.Nombre}"
+                                   FontSize="16"
+                                   TextColor="Gray"/>
+
+                            <!-- Botón Editar -->
+                            <Button Text="Editar"
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Clicked="EditarButton_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Blue"
+                                    HorizontalOptions="End"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ScrollView>
+</ContentPage>
